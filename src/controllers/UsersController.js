@@ -1,13 +1,17 @@
 import AppError from '../utils/AppError.js';
+import sqliteConnection from '../database/sqlite/index.js'
 
 export default class UsersController {
-  create(request, response) {
-    const { name, email, password } = request.body;
+  async create(request, response) {
+    const { name, email, password } = request.body
 
-    if (!name) {
-      throw new AppError('Nome é obrigatório')
+    const database = await sqliteConnection();
+    const checkUserExists = await database.get("SELECT * FROM users WHERE email = (?)", [email])
+
+    if (checkUserExists){
+      throw new AppError("Este e-mail já está em uso.")
     }
 
-    response.status(201).json({ name, email, password })
+    return response.status(201).json()
   }
 }
