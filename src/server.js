@@ -1,5 +1,5 @@
 import 'express-async-errors';
-import database from './database/sqlite/index.js';
+import migrationsRun from './database/sqlite/migrations/index.js';
 
 import AppError from './utils/AppError.js';
 import express from 'express';
@@ -10,7 +10,7 @@ app.use(express.json())
 
 app.use(routes)
 
-database()
+migrationsRun()
 
 app.use((error, request, response, next) => {
   if (error instanceof AppError) {
