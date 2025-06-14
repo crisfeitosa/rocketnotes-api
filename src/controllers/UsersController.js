@@ -1,4 +1,4 @@
-export class UsersController {
+export default class UsersController {
   create(request, response) {
     const { name, email, password } = request.body
 
