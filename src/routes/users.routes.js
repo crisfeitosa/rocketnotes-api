@@ -1,4 +1,5 @@
-const { Router } = require('express')
+import { Router } from 'express';
+
 const usersRoutes = Router()
 
 usersRoutes.post('/', (request, response) => {
@@ -7,4 +8,4 @@ usersRoutes.post('/', (request, response) => {
   response.json({ name, email, password })
 })
 
-module.exports = usersRoutes
+export default usersRoutes
