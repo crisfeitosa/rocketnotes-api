@@ -1,4 +1,7 @@
 import bcryptjs from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+
+import authConfig from '../configs/auth.js';
 import knex from '../database/knex/index.js';
 import AppError from '../utils/AppError.js';
 
@@ -18,6 +21,12 @@ export default class SessionsController {
       throw new AppError('Email e/ou senha incorreta', 401);
     }
 
-    return response.json(user);
+    const { secret, expiresIn } = authConfig.jwt;
+    const token = jwt.sign({}, secret, {
+      subject: String(user.id),
+      expiresIn,
+    });
+
+    return response.json({ user, token });
   }
 }
