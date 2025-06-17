@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const TMP_FOLDER = path.resolve(__dirname, "..", "..", "tmp");
-const UPLOADS_FOLDER = path.resolve(__dirname, "uploads");
+const UPLOADS_FOLDER = path.resolve(TMP_FOLDER, "uploads");
 
 const MULTER = {
   storage: multer.diskStorage({
