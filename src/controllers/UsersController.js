@@ -4,7 +4,7 @@ import sqliteConnection from '../database/sqlite/index.js'
 
 export default class UsersController {
   async create(request, response) {
-    const { name, email, password } = request.body
+    const { name, email, password } = request.body;
 
     const database = await sqliteConnection();
     const checkUserExists = await database.get("SELECT * FROM users WHERE email = (?)", [email])
@@ -48,13 +48,13 @@ export default class UsersController {
     }
 
     if(password && old_password) {
-      const checkOldPassword = await compare(old_password, user.password)
+      const checkOldPassword = await bcryptjs.compare(old_password, user.password)
 
       if(!checkOldPassword) {
         throw new AppError("A senha antiga não confere.")
       }
 
-      user.password = await hash(password, 8)
+      user.password = await bcryptjs.hash(password, 8)
     }
 
     await database.run(`
