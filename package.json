@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node ./src/server.js",
+    "start": "pm2-runtime start ecosystem.config.cjs --env production",
     "dev": "nodemon ./src/server.js",
     "migrate": "npx knex migrate:latest"
   },
@@ -21,6 +21,7 @@
     "jsonwebtoken": "^9.0.2",
     "knex": "^2.5.1",
     "multer": "^2.0.1",
+    "pm2": "^6.0.8",
     "sqlite": "^4.2.1",
     "sqlite3": "^5.1.6"
   },
